@@ -6,11 +6,13 @@ use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Kainiklas\FilamentScout\Providers\MeilisearchGlobalSearchProvider;
 use Kainiklas\FilamentScout\Providers\ScoutGlobalSearchProvider;
+use Kainiklas\FilamentScout\Traits\ConfigurableSearchExclusions;
 use Kainiklas\FilamentScout\Traits\ConfigurePlugin;
 
 class FilamentScoutPlugin implements Plugin
 {
     use ConfigurePlugin;
+    use ConfigurableSearchExclusions;
 
     public function getId(): string
     {
