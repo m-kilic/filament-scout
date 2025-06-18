@@ -2,6 +2,7 @@
 
 namespace Kainiklas\FilamentScout;
 
+use Exception;
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 use Kainiklas\FilamentScout\Providers\CustomScoutGlobalSearchProvider;
@@ -24,6 +25,9 @@ class FilamentScoutPlugin implements Plugin
         //
     }
 
+    /**
+     * @throws Exception
+     */
     public function boot(Panel $panel): void
     {
         // Global Search Provider

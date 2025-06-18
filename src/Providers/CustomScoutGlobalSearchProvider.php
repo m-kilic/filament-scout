@@ -9,6 +9,7 @@ use Filament\GlobalSearch\GlobalSearchResult;
 use Filament\GlobalSearch\GlobalSearchResults;
 use Illuminate\Database\Eloquent\Model;
 
+
 class CustomScoutGlobalSearchProvider implements GlobalSearchProvider
 {
     public function getResults(string $query): ?GlobalSearchResults
@@ -18,8 +19,8 @@ class CustomScoutGlobalSearchProvider implements GlobalSearchProvider
         // Get the plugin instance to access trait methods
         $plugin = \Kainiklas\FilamentScout\FilamentScoutPlugin::get();
 
-        // Get resources to exclude based on the search query using the plugin
-        $excludedResources = $plugin::getExcludedResourcesForQuery($query);
+        // Get resources to exclude based on the search query using the plugin instance
+        $excludedResources = $plugin->getExcludedResourcesForQuery($query);
 
         foreach (Filament::getResources() as $resource) {
             if (! $resource::canGloballySearch()) {
@@ -27,10 +28,9 @@ class CustomScoutGlobalSearchProvider implements GlobalSearchProvider
             }
 
             // Skip this resource if it should be excluded
+            // $resource is already a string (class name) in Filament's getResources()
             if (in_array($resource, $excludedResources) ||
-                in_array(get_class($resource), $excludedResources) ||
-                $plugin::shouldExcludeResource($query, $resource) ||
-                $plugin::shouldExcludeResource($query, get_class($resource))) {
+                $plugin->shouldExcludeResource($query, $resource)) {
                 continue;
             }
 
