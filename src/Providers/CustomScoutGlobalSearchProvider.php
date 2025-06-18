@@ -40,7 +40,11 @@ class CustomScoutGlobalSearchProvider implements GlobalSearchProvider
 
             $search = $resource::getModel()::search($query);
 
+            // Apply search limit from plugin configuration or environment
+            $searchLimit = $plugin->getSearchLimit();
+
             $resourceResults = $search
+                ->take($searchLimit)  // Limit the number of results from Scout
                 ->get()
                 ->map(function (Model $record) use ($resource): ?GlobalSearchResult {
                     $url = $resource::getGlobalSearchResultUrl($record);

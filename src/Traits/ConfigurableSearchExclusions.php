@@ -294,4 +294,27 @@ trait ConfigurableSearchExclusions
 
         return $this;
     }
+
+    /**
+     * Get the search limit from configuration
+     *
+     * @return int
+     */
+    public function getSearchLimit(): int
+    {
+        return config('scout_search_limit', env('SCOUT_SEARCH_LIMIT', 100));
+    }
+
+    /**
+     * Set custom search limit
+     *
+     * @param int $limit
+     * @return static
+     */
+    public function setSearchLimit(int $limit): static
+    {
+        config(['scout_search_limit' => $limit]);
+
+        return $this;
+    }
 }
