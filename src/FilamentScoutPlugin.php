@@ -4,15 +4,15 @@ namespace Kainiklas\FilamentScout;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Kainiklas\FilamentScout\Providers\CustomScoutGlobalSearchProvider;
 use Kainiklas\FilamentScout\Providers\MeilisearchGlobalSearchProvider;
-use Kainiklas\FilamentScout\Providers\ScoutGlobalSearchProvider;
 use Kainiklas\FilamentScout\Traits\ConfigurableSearchExclusions;
 use Kainiklas\FilamentScout\Traits\ConfigurePlugin;
 
 class FilamentScoutPlugin implements Plugin
 {
-    use ConfigurePlugin;
     use ConfigurableSearchExclusions;
+    use ConfigurePlugin;
 
     public function getId(): string
     {
@@ -30,7 +30,7 @@ class FilamentScoutPlugin implements Plugin
         if ($this->getUseMeiliSearch()) {
             $panel->globalSearch(MeilisearchGlobalSearchProvider::class);
         } else {
-            $panel->globalSearch(ScoutGlobalSearchProvider::class);
+            $panel->globalSearch(CustomScoutGlobalSearchProvider::class);
         }
     }
 
